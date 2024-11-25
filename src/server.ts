@@ -1,18 +1,27 @@
-import app from "./app";
+import { Application } from './app';
 
+class Server {
+  private app: Application;
+  private port: number;
 
+  constructor(port: number) {
+    this.port = port;
+    this.app = new Application();  // Initialize the Application class
+  }
+
+  // Method to start the server
+  public start() {
+    this.app.getApp().listen(this.port, () => {
+      console.log(`Server is running on Port: ${this.port}`);
+    });
+  }
+}
+
+// Define the port
 const port = 5000;
 
-const activateServer = async () => {
-  try {
-  //  await config.connectDB();
-    app.listen(port, () => {
-      console.log(`Server is running on Port: ${port} `);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// Create a new Server instance with the port
+const server = new Server(port);
 
-// Call the function to start the server
-activateServer();
+// Start the server
+server.start();
