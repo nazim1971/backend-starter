@@ -1,27 +1,28 @@
 import { Application } from './app';
+import config from './config';  // Importing config to access the port and DB methods
 
 class Server {
   private app: Application;
   private port: number;
 
-  constructor(port: number) {
-    this.port = port;
+  constructor() {
     this.app = new Application();  // Initialize the Application class
+    this.port = config.getPort();  // Get the port directly from the environment
   }
 
-  // Method to start the server
-  public start() {
-    this.app.getApp().listen(this.port, () => {
-      console.log(`Server is running on Port: ${this.port}`);
-    });
+  // Async method to start the server
+  public async start() {
+    try {
+      await config.connectDB();  // Wait for MongoDB connection
+      this.app.getApp().listen(this.port, () => {
+        console.log(`Server is running on Port: ${this.port}`);
+      });
+    } catch (error) {
+      console.error('Error starting the server:', error);
+    }
   }
 }
 
-// Define the port
-const port = 5000;
-
-// Create a new Server instance with the port
-const server = new Server(port);
-
-// Start the server
+// Create a new Server instance and start it
+const server = new Server();
 server.start();
