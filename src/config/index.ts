@@ -31,7 +31,7 @@ class Config {
 
   // Getter for the port from the environment variable
   public getPort(): number {
-    return Number(process.env.PORT) ;
+    return Number(process.env.PORT);
   }
 }
 

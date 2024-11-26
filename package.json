@@ -12,7 +12,8 @@
     "pretty": "prettier --ignore-path .gitignore --write ./src/**/*.{js,ts,json}"
   },
   "keywords": [],
-  "author": "",
+  "author": "Md. Nazim Uddin",
+  "email": "nazimmuddin10@gmail.com",
   "license": "ISC",
   "description": "",
   "dependencies": {
