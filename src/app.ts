@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 
-export class Application {
+class Application {
   private app: express.Application;
 
   constructor() {
@@ -27,10 +27,12 @@ export class Application {
       });
     });
   }
-  public getApp() {
+  public get App() {
     return this.app;
   }
 
 }
+
+export default new Application(); 
 
 
