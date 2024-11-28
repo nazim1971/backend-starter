@@ -33,6 +33,9 @@ class Config {
   public get port(): number {
     return Number(process.env.PORT);
   }
+  public get slat(): number {
+    return Number(process.env.BCRYPT_SALT_ROUNDS)
+  }
 }
 
 export default new Config();

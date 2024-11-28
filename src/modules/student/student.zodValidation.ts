@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { z } from 'zod';
 
 // Validation for UserName
@@ -64,6 +65,14 @@ const studentValidationSchema = z.object({
   id: z.string({
     required_error: 'ID is required'
   }),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+
+  user: z
+  .string({ required_error: "User id is required"})
+  .refine((val) => mongoose.Types.ObjectId.isValid(val), {
+    message: 'Invalid User ObjectId',
+  }),
+
   name: userNameValidationSchema,
 
   gender: z.enum(['female', 'male'], {

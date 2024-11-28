@@ -85,6 +85,11 @@ const studentSchema = new Schema<TStudent>({
     unique: true,
     ref: 'User',
   },
+  password: {
+    type: String,   
+    required: [true, 'Password is required'],  
+    minlength: [8, 'Password must be at least 8 characters long'],
+  },
   name: {
     type: userNameSchema,
     required: [true, 'Name is required'],
@@ -179,6 +184,7 @@ function excludeDeleted(this: Query<any, Document>,next: Function) {
     next();
   });
 
+  //creating a custom static method
   studentSchema.statics.isUserExist = async function (id: string) {
     const existingUser = await Student.findOne({ id });
     return existingUser;
