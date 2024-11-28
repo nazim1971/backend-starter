@@ -1,38 +1,34 @@
+// application.ts
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { StudentRoutes } from './modules/student/student.route';
 
 class Application {
-  private app: express.Application;
+  public App: express.Application;
 
   constructor() {
-    this.app = express();
-
-    // Middleware
+    this.App = express();
     this.middleware();
-
-    // Routes
     this.routes();
   }
 
   private middleware() {
-    this.app.use(express.json());
-    this.app.use(cors());
+    this.App.use(express.json());
+    this.App.use(cors());
   }
 
   private routes() {
-    this.app.get('/', (req: Request, res: Response) => {
+    //Application Routes
+    this.App.use('/api/v1/student', StudentRoutes);
+
+
+    this.App.get('/', (req: Request, res: Response) => {
       res.status(200).json({
         success: true,
         message: 'Backend Starter on Fire 🔥🔥🔥',
       });
     });
   }
-  public get App() {
-    return this.app;
-  }
-
 }
 
-export default new Application(); 
-
-
+export default new Application();

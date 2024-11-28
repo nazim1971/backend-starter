@@ -157,7 +157,7 @@ const studentSchema = new Schema<TStudent>({
     type: Boolean,
     default: false,
   },
-}
+},
 {
     toJSON: {
       virtuals: true,
@@ -172,7 +172,7 @@ studentSchema.virtual('fullName').get(function () {
 
 //Query middlewire
 
-function excludeDeleted(this: Query<any, Document>,next: Function) {
+function excludeDeleted(this: Query<unknown, Document>,next: Function) {
     this.find({ isDeleted: { $ne: true } });
     next();
   }

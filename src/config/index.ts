@@ -9,16 +9,23 @@ class Config {
 
   constructor() {
     this.uri = process.env.DATABASE_URI as string;
+
+    // Ensure required variables are present
+    if (!this.uri) {
+      throw new Error('DATABASE_URI is required in .env file');
+    }
+
+    if (!process.env.PORT) {
+      throw new Error('PORT is required in .env file');
+    }
+    if (!process.env.BCRYPT_SALT_ROUNDS) {
+      throw new Error('BCRYPT_SALT_ROUNDS is required in .env file');
+    }
   }
 
   // MongoDB connection method
   public async connectDB() {
     try {
-      if (!this.uri) {
-        throw new Error(
-          'MongoDB URI is not defined in the environment variables',
-        );
-      }
       await mongoose.connect(this.uri);
       console.log('Connected to MongoDB Successfully');
     } catch (error) {
